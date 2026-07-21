@@ -1,0 +1,71 @@
+
+> maysan-iraq-geoai-webgis@1.3.2 audit
+> node scripts/audit.mjs
+
+
+WEBGIS AUDIT
+============
+PASS  Total area konsisten: 16072.0 km² pada 2020 dan 2025
+PASS  Jumlah perubahan luas antarkelas seimbang (0 km²)
+PASS  Confusion matrix berbentuk persegi 4 × 4
+PASS  Overall accuracy konsisten: 89.25%
+PASS  Jumlah sampel confusion matrix konsisten: 400
+PASS  Geometri batas Maysan valid dan bebas self-intersection
+PASS  Empat kelas tersedia pada layer 2020
+PASS  Geometri Air dan wetland Maysan 2020 valid
+PASS  Geometri Air dan wetland Maysan 2020 berada di dalam Maysan
+PASS  Atribut luas water 2020 konsisten
+PASS  Geometri Vegetasi dan lahan pertanian Maysan 2020 valid
+PASS  Geometri Vegetasi dan lahan pertanian Maysan 2020 berada di dalam Maysan
+PASS  Atribut luas vegetation 2020 konsisten
+PASS  Geometri Lahan terbuka dan kering Maysan 2020 valid
+PASS  Geometri Lahan terbuka dan kering Maysan 2020 berada di dalam Maysan
+PASS  Atribut luas bare 2020 konsisten
+PASS  Geometri Area terbangun dan aktivitas manusia Maysan 2020 valid
+PASS  Geometri Area terbangun dan aktivitas manusia Maysan 2020 berada di dalam Maysan
+PASS  Atribut luas built 2020 konsisten
+PASS  Layer 2020 menutup seluruh area studi tanpa celah
+PASS  Empat kelas tersedia pada layer 2025
+PASS  Geometri Air dan wetland Maysan 2025 valid
+PASS  Geometri Air dan wetland Maysan 2025 berada di dalam Maysan
+PASS  Atribut luas water 2025 konsisten
+PASS  Geometri Vegetasi dan lahan pertanian Maysan 2025 valid
+PASS  Geometri Vegetasi dan lahan pertanian Maysan 2025 berada di dalam Maysan
+PASS  Atribut luas vegetation 2025 konsisten
+PASS  Geometri Lahan terbuka dan kering Maysan 2025 valid
+PASS  Geometri Lahan terbuka dan kering Maysan 2025 berada di dalam Maysan
+PASS  Atribut luas bare 2025 konsisten
+PASS  Geometri Area terbangun dan aktivitas manusia Maysan 2025 valid
+PASS  Geometri Area terbangun dan aktivitas manusia Maysan 2025 berada di dalam Maysan
+PASS  Atribut luas built 2025 konsisten
+PASS  Layer 2025 menutup seluruh area studi tanpa celah
+PASS  Hotspot A valid
+PASS  Hotspot A berada di dalam Maysan
+PASS  Hotspot B valid
+PASS  Hotspot B berada di dalam Maysan
+PASS  Hotspot C valid
+PASS  Hotspot C berada di dalam Maysan
+PASS  Seluruh titik ground truth berada di dalam Maysan
+PASS  Dua aset citra satelit konteks tersedia dan tidak kosong
+PASS  Konsol peta memiliki kontrol utama
+PASS  Zoom peta tenang dan roda mouse diteruskan untuk scroll halaman
+PASS  Kontrol zoom manual dan reset peta tersedia
+PASS  Pusat peta konsisten dengan informasi koordinat Maysan
+PASS  Enam halaman internal navbar tersedia
+PASS  Navbar fixed memiliki kompensasi ruang konten
+PASS  Mesin peta dimuat secara lazy untuk mengurangi beban awal
+PASS  Deep link dan status masuk aplikasi dipertahankan saat refresh
+PASS  Kartu statistik memuat baseline, kondisi terkini, delta, dan ringkasan utama
+PASS  Grafik memiliki tooltip kustom, sumbu referensi, dan ringkasan perubahan bersih
+PASS  Pembanding citra hanya digeser melalui tombol panah dan mendukung keyboard
+PASS  Citra pembanding dibundel sebagai aset relatif dan aman untuk subfolder deployment
+PASS  Mode terang dan gelap aktif serta tersimpan di localStorage
+PASS  Tema daylight dan scroll chaining peta tersedia pada CSS
+PASS  CSS pembanding citra tidak lagi menampilkan bulatan range slider
+PASS  Tidak ada referensi lokasi lama di source code
+PASS  Daftar pekerjaan penelitian tidak tampil di build website
+PASS  Dua citra konteks masuk ke dist/assets dengan nama hashed
+PASS  Build menggunakan referensi aset relatif untuk deployment subfolder
+PASS  Build production dist/index.html tersedia
+
+Hasil: 62 lulus, 0 gagal.

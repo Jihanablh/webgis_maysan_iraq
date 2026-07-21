@@ -1,0 +1,56 @@
+
+> maysan-iraq-geoai-webgis@1.3.2 audit:runtime
+> node scripts/runtime-audit.mjs
+
+PASS  Opening tampil
+PASS  Latar citra opening berhasil dimuat
+PASS  Tombol masuk dapat diklik
+PASS  Dashboard terbuka
+PASS  Desktop tanpa overflow horizontal (1431 / 1440)
+PASS  Navbar menggunakan posisi fixed
+PASS  Navbar tetap terlihat saat halaman digulir
+PASS  Navigasi Peta Tutupan
+PASS  Navigasi Perubahan
+PASS  Navigasi Statistika
+PASS  Navigasi Validasi
+PASS  Navigasi Tentang
+PASS  Dua citra pembanding berhasil dimuat
+PASS  Range slider lama sudah dihapus
+PASS  Tombol panah menjadi satu-satunya slider
+PASS  Klik di luar tombol panah tidak menggeser pembanding (54 → 54)
+PASS  Seret tombol panah menggeser pembanding (54 → 71)
+PASS  Tombol panah mendukung keyboard (71 → 69)
+PASS  Kartu statistik tampil lengkap
+PASS  Teks kartu statistik memiliki kontras tinggi
+PASS  Grafik tidak memakai kotak putih
+PASS  Grafik perubahan bersih tersedia
+PASS  Unduhan CSV dapat dipicu
+PASS  File CSV berhasil dibuat
+PASS  Mode terang dapat diaktifkan
+PASS  Tema berubah menjadi daylight
+PASS  Latar mode terang benar-benar berubah
+PASS  Panel grafik mode terang tidak gelap
+PASS  Peta Leaflet dirender
+PASS  Peta memenuhi area utama viewport
+PASS  Scroll wheel peta dinonaktifkan
+PASS  Kontrol zoom manual tersedia
+PASS  Unduhan GeoJSON dapat dipicu
+PASS  File GeoJSON berhasil dibuat
+PASS  Roda mouse di atas peta menggulir halaman
+PASS  Mode perubahan peta dapat dipilih
+PASS  Layer hotspot tampil
+PASS  Chatbot dapat dibuka
+PASS  Input chatbot tersedia
+PASS  Chatbot memberikan respons
+PASS  Mobile tanpa overflow horizontal (375 / 375)
+PASS  Menu mobile dapat dibuka
+PASS  Menu mobile menampilkan halaman
+PASS  Panel layer mobile tidak menutupi peta saat pertama dibuka
+PASS  Peta mobile tanpa overflow horizontal (375 / 375)
+PASS  Hash #map konsisten dengan halaman peta mobile
+PASS  Tidak ada exception JavaScript
+
+RUNTIME AUDIT
+=============
+
+Hasil: 47 lulus, 0 gagal.

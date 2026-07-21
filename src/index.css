@@ -1,0 +1,594 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  --pointer-x: 50vw;
+  --pointer-y: 50vh;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; background: #06100d; }
+body { margin: 0; min-width: 320px; min-height: 100vh; background: #06100d; }
+button, input { font: inherit; }
+button { cursor: pointer; }
+img { display: block; }
+::selection { background: rgba(239, 211, 154, .32); color: white; }
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-track { background: #06100d; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,.14); border-radius: 999px; border: 2px solid #06100d; }
+
+.bg-grid-mask {
+  background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+  background-size: 58px 58px;
+  mask-image: linear-gradient(to bottom, black, transparent 92%);
+}
+.grain {
+  opacity: .075;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitchTiles'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.4'/%3E%3C/svg%3E");
+}
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(239, 211, 154, .75);
+  text-shadow: 0 0 70px rgba(239, 211, 154, .12);
+}
+.cursor-aura {
+  background: radial-gradient(420px circle at var(--pointer-x) var(--pointer-y), rgba(85, 189, 158, .065), transparent 68%);
+}
+
+.opening-satellite {
+  background-image: url('./assets/maysan-regional-2024-usgs.webp');
+  background-size: cover;
+  background-position: 37% 52%;
+  filter: saturate(.78) contrast(1.07) brightness(.62);
+  transform: scale(1.04);
+  animation: satelliteBreath 18s ease-in-out infinite;
+}
+.opening-scan { animation: openingScan 8s cubic-bezier(.4,0,.2,1) infinite; }
+.dashboard-hero__image,
+.satellite-note__image,
+.about-hero__image {
+  background-image: url('./assets/maysan-regional-2024-usgs.webp');
+  background-size: cover;
+  background-position: 37% 52%;
+  filter: saturate(.72) contrast(1.08) brightness(.72);
+}
+.dashboard-hero__image { animation: satelliteBreath 22s ease-in-out infinite; }
+.dashboard-hero__scan { animation: dashboardScan 10s ease-in-out infinite; }
+.satellite-note__image { background-position: 37% 52%; filter: saturate(.76) contrast(1.1) brightness(.55); transform: scale(1.08); }
+.about-hero__image { background-position: 37% 52%; filter: saturate(.72) contrast(1.08) brightness(.55); animation: satelliteBreath 24s ease-in-out infinite reverse; }
+.map-contours {
+  background-image: repeating-radial-gradient(ellipse at 70% 48%, transparent 0 23px, rgba(255,255,255,.04) 24px 25px);
+  mask-image: linear-gradient(90deg, transparent 30%, black 75%);
+}
+.story-texture {
+  background:
+    radial-gradient(circle at 35% 35%, color-mix(in srgb, var(--story-accent) 38%, transparent), transparent 35%),
+    linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size: auto, 24px 24px, 24px 24px;
+  clip-path: polygon(12% 7%, 88% 0, 100% 34%, 84% 66%, 96% 92%, 46% 100%, 15% 82%, 0 48%);
+  filter: drop-shadow(0 0 35px color-mix(in srgb, var(--story-accent) 20%, transparent));
+}
+.story-card-glow { opacity: .09; }
+
+.metric-rail > div { min-width: 0; }
+
+.marsh-pulse__halo {
+  background: radial-gradient(circle, rgba(77, 179, 149, .16), rgba(76, 173, 211, .06) 38%, transparent 68%);
+  filter: blur(8px);
+  animation: pulseHalo 5.5s ease-in-out infinite;
+}
+.marsh-pulse__orbit {
+  position: absolute;
+  inset: 12%;
+  border: 1px solid rgba(239, 211, 154, .14);
+  border-radius: 50%;
+  transform: rotateX(66deg) rotateZ(0);
+  animation: pulseOrbit 17s linear infinite;
+}
+.marsh-pulse__orbit--two { inset: 2%; border-color: rgba(96, 206, 199, .13); animation-duration: 27s; animation-direction: reverse; }
+.marsh-wave { transform-origin: center; }
+.marsh-wave--one { animation: marshWave 6.5s ease-in-out infinite; }
+.marsh-wave--two { animation: marshWave 8s ease-in-out infinite reverse; }
+.marsh-wave--three { animation: marshWave 10s ease-in-out infinite; }
+.marsh-scan { animation: marshScan 4.8s ease-in-out infinite; }
+
+.matrix-cell { position: relative; overflow: hidden; }
+.matrix-cell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(115, 205, 174, calc(var(--matrix-alpha, .3) * .12)), transparent 70%);
+}
+.matrix-cell span { position: relative; }
+
+.leaflet-container { background: #08110f; font-family: Inter, sans-serif; }
+.leaflet-popup-content-wrapper, .leaflet-popup-tip { background: #111b18; color: rgba(255,255,255,.78); box-shadow: 0 18px 50px rgba(0,0,0,.45); }
+.leaflet-popup-content { line-height: 1.7; }
+.leaflet-control-attribution { background: rgba(7,14,12,.75) !important; color: rgba(255,255,255,.35) !important; }
+.leaflet-control-attribution a { color: rgba(239,211,154,.72) !important; }
+
+.map-stage .leaflet-tile-pane { filter: saturate(.78) contrast(1.06) brightness(.78); }
+.map-vignette { box-shadow: inset 0 0 180px rgba(2,8,6,.55); }
+.map-scan-grid {
+  opacity: .13;
+  background-image: linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px);
+  background-size: 50px 50px;
+  mask-image: linear-gradient(to bottom, black, transparent 80%);
+}
+.map-tool-button {
+  display: grid;
+  height: 42px;
+  width: 42px;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.1);
+  background: rgba(7,17,15,.92);
+  color: rgba(255,255,255,.68);
+  box-shadow: 0 16px 40px rgba(0,0,0,.35);
+  backdrop-filter: blur(16px);
+  transition: .25s ease;
+}
+.map-tool-button:hover { color: white; background: rgba(19,31,27,.96); border-color: rgba(255,255,255,.2); }
+.map-console-pill {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 999px;
+  padding: .65rem .85rem;
+  color: rgba(255,255,255,.42);
+  font-size: .72rem;
+  transition: .25s ease;
+}
+.map-console-pill:hover { color: white; border-color: rgba(255,255,255,.2); background: rgba(255,255,255,.04); }
+.map-console-pill--active { color: #f5e4bc; border-color: rgba(239,211,154,.25); background: rgba(239,211,154,.09); }
+.map-year-button {
+  display: flex;
+  min-height: 58px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255,255,255,.08);
+  color: rgba(255,255,255,.38);
+  transition: .3s ease;
+}
+.map-year-button strong { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; }
+.map-year-button--active { color: #13201b; background: #efd39a; border-color: #efd39a; box-shadow: 0 12px 35px rgba(224,188,117,.18); }
+
+
+.scene-fallback {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  perspective: 900px;
+  transform-style: preserve-3d;
+}
+.scene-fallback__glow {
+  position: absolute;
+  inset: 18% 10%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(83, 174, 146, .22), transparent 66%);
+  filter: blur(22px);
+  animation: pulseSoftWide 3.2s ease-in-out infinite;
+}
+.scene-fallback__terrain {
+  position: absolute;
+  left: 11%;
+  top: 23%;
+  width: 78%;
+  height: 56%;
+  clip-path: polygon(8% 22%, 25% 7%, 48% 14%, 70% 4%, 94% 24%, 86% 48%, 97% 70%, 74% 92%, 45% 84%, 20% 96%, 3% 68%, 14% 48%);
+  background-image: linear-gradient(rgba(118,202,176,.25) 1px, transparent 1px), linear-gradient(90deg, rgba(118,202,176,.25) 1px, transparent 1px), radial-gradient(circle at 58% 42%, rgba(67,146,126,.5), rgba(151,101,54,.34) 58%, rgba(43,65,55,.25));
+  background-size: 24px 24px, 24px 24px, 100% 100%;
+  border: 1px solid rgba(221,174,104,.35);
+  box-shadow: 0 0 70px rgba(83,174,146,.2), inset 0 0 50px rgba(221,174,104,.12);
+  transform: rotateX(61deg) rotateZ(-15deg) translateZ(0);
+  animation: terrainFloat 6s ease-in-out infinite;
+}
+.scene-fallback__ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border: 1px solid rgba(118,202,176,.34);
+  border-radius: 50%;
+  transform-style: preserve-3d;
+  animation: orbit3d 16s linear infinite;
+}
+.scene-fallback__ring--one { width: 48%; height: 27%; margin: -13.5% 0 0 -24%; }
+.scene-fallback__ring--two { width: 63%; height: 36%; margin: -18% 0 0 -31.5%; border-color: rgba(221,174,104,.34); animation-duration: 22s; animation-direction: reverse; }
+.scene-fallback__ring--three { width: 78%; height: 45%; margin: -22.5% 0 0 -39%; opacity: .72; animation-duration: 29s; }
+.scene-fallback__particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 999px;
+  background: #dfbd82;
+  box-shadow: 0 0 12px rgba(223,189,130,.8);
+  animation: particleDrift 7s ease-in-out infinite;
+}
+
+@keyframes satelliteBreath {
+  0%, 100% { transform: scale(1.04) translate3d(0,0,0); }
+  50% { transform: scale(1.085) translate3d(-1.1%, .6%, 0); }
+}
+@keyframes openingScan {
+  0% { transform: translateY(-5vh); opacity: 0; }
+  12% { opacity: .72; }
+  72% { opacity: .5; }
+  100% { transform: translateY(105vh); opacity: 0; }
+}
+@keyframes dashboardScan {
+  0%, 100% { left: 43%; opacity: .08; }
+  45% { opacity: .55; }
+  60% { left: 88%; opacity: .25; }
+}
+@keyframes pulseHalo { 0%, 100% { transform: scale(.94); opacity: .62; } 50% { transform: scale(1.04); opacity: 1; } }
+@keyframes pulseOrbit { from { transform: rotateX(66deg) rotateZ(0deg); } to { transform: rotateX(66deg) rotateZ(360deg); } }
+@keyframes marshWave { 0%, 100% { transform: translate3d(-12px, 0, 0) scale(1.02); } 50% { transform: translate3d(14px, -7px, 0) scale(1.05); } }
+@keyframes marshScan { 0% { transform: translateY(-20px); opacity: 0; } 15% { opacity: .7; } 80% { opacity: .45; } 100% { transform: translateY(520px); opacity: 0; } }
+@keyframes terrainFloat { 0%,100% { transform: rotateX(61deg) rotateZ(-15deg) translate3d(0,0,0); } 50% { transform: rotateX(64deg) rotateZ(-12deg) translate3d(0,-12px,20px); } }
+@keyframes orbit3d { from { transform: rotateX(68deg) rotateZ(0deg); } to { transform: rotateX(68deg) rotateZ(360deg); } }
+@keyframes particleDrift { 0%,100% { transform: translate3d(0,0,0) scale(.7); opacity: .25; } 50% { transform: translate3d(14px,-22px,28px) scale(1.2); opacity: .9; } }
+@keyframes spinSlow { to { transform: rotate(360deg); } }
+@keyframes pulseSoftWide { 0%,100% { opacity: .45; transform: scale(.96); } 50% { opacity: .9; transform: scale(1.04); } }
+.animate-spin-slow { animation: spinSlow 13s linear infinite; }
+
+@media (max-width: 1023px) {
+  .dashboard-hero__image { width: 100%; opacity: .52; background-position: 62% 48%; }
+  .dashboard-hero__scan { display: none; }
+  .about-hero__image { background-position: 62% 48%; }
+}
+
+@media (max-width: 767px) {
+  .opening-satellite { background-position: 67% 46%; filter: saturate(.68) contrast(1.05) brightness(.48); }
+  .map-stage .leaflet-control-attribution { max-width: 210px; font-size: 8px; }
+  .map-stage aside { max-width: 255px; }
+  .map-year-button { min-height: 52px; }
+  .story-texture { opacity: .38; width: 70%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+/* Final UI/UX refinement: fixed floating navigation, readable metrics, calm charts and map controls. */
+.floating-navbar {
+  isolation: isolate;
+  overflow: visible;
+}
+
+.metric-card {
+  background:
+    linear-gradient(145deg, rgba(12, 30, 25, .98), rgba(7, 18, 15, .98)),
+    radial-gradient(circle at 85% 10%, color-mix(in srgb, var(--metric-accent) 22%, transparent), transparent 48%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.035), 0 20px 55px rgba(0,0,0,.18);
+  transition: transform .32s ease, border-color .32s ease, box-shadow .32s ease;
+}
+.metric-card::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--metric-accent), transparent);
+  opacity: .72;
+}
+.metric-card:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--metric-accent) 34%, rgba(255,255,255,.1));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 28px 70px rgba(0,0,0,.28);
+}
+.metric-card__glow { background: var(--metric-accent); opacity: .14; }
+.metric-card h3,
+.metric-card p,
+.metric-card span { text-shadow: 0 1px 20px rgba(0,0,0,.18); }
+
+.research-signal {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(150deg, rgba(255,255,255,.035), rgba(255,255,255,.012));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.025);
+}
+.research-signal::before {
+  content: '';
+  position: absolute;
+  right: -38px;
+  top: -42px;
+  width: 115px;
+  height: 115px;
+  border-radius: 999px;
+  background: var(--signal-tone);
+  filter: blur(55px);
+  opacity: .1;
+}
+.research-signal > * { position: relative; }
+
+.comparison-chart {
+  border-top: 1px solid rgba(255,255,255,.08);
+  padding-top: 1.4rem;
+}
+.comparison-row {
+  border-bottom: 1px solid rgba(255,255,255,.075);
+  padding-bottom: 1.35rem;
+}
+.comparison-row:last-child { border-bottom: 0; padding-bottom: 0; }
+
+.chart-panel {
+  border-radius: 24px;
+  background-image: radial-gradient(circle at 88% 8%, rgba(87, 183, 151, .07), transparent 38%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.025), 0 24px 70px rgba(0,0,0,.17);
+}
+.chart-tooltip {
+  min-width: 180px;
+  max-width: min(280px, 72vw);
+  border: 1px solid rgba(255,255,255,.13);
+  border-radius: 16px;
+  background: rgba(6, 17, 14, .96);
+  padding: .85rem .95rem;
+  color: white;
+  box-shadow: 0 24px 70px rgba(0,0,0,.5);
+  backdrop-filter: blur(18px);
+}
+.chart-tooltip__label {
+  overflow: hidden;
+  max-width: 230px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 9px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.38);
+}
+.recharts-wrapper,
+.recharts-surface,
+.recharts-responsive-container,
+.recharts-layer { background: transparent !important; }
+.recharts-tooltip-wrapper { z-index: 30 !important; outline: none !important; }
+.recharts-default-tooltip {
+  border: 1px solid rgba(255,255,255,.13) !important;
+  border-radius: 16px !important;
+  background: rgba(6,17,14,.96) !important;
+  color: #fff !important;
+}
+.recharts-tooltip-label,
+.recharts-tooltip-item { color: rgba(255,255,255,.78) !important; }
+
+.map-tool-button--active {
+  border-color: rgba(239,211,154,.28);
+  background: rgba(239,211,154,.11);
+  color: #f5e4bc;
+}
+.map-layer-panel {
+  border-radius: 20px;
+  animation: mapPanelIn .28s cubic-bezier(.22,1,.36,1);
+}
+.map-stage .leaflet-container {
+  cursor: grab;
+  overscroll-behavior: contain;
+}
+.map-stage .leaflet-container:active { cursor: grabbing; }
+.map-stage .leaflet-interactive { transition: fill-opacity .25s ease, stroke .25s ease; }
+.map-stage .leaflet-interactive:hover { fill-opacity: .78 !important; }
+
+@keyframes mapPanelIn {
+  from { opacity: 0; transform: translate3d(-12px, 0, 0) scale(.985); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@media (max-width: 639px) {
+  .metric-card { min-height: 202px; }
+  .chart-panel { border-radius: 19px; }
+  .chart-tooltip { min-width: 150px; padding: .72rem .78rem; }
+  .comparison-row .flex.items-center.gap-3 { flex-wrap: wrap; gap: .5rem; }
+  .map-layer-panel { max-height: calc(100% - 7.5rem); overflow-y: auto; }
+  .map-console-pill { padding: .58rem .72rem; font-size: .66rem; }
+  .map-tool-button { width: 38px; height: 38px; }
+}
+
+/* v1.2 interaction and daylight theme */
+:root {
+  --app-bg: #06100d;
+  --app-surface: #091512;
+  --app-surface-2: #0a1713;
+  --app-text: #f7f7f1;
+  --app-muted: rgba(255,255,255,.48);
+  --app-border: rgba(255,255,255,.1);
+  --nav-bg: rgba(6,16,13,.84);
+  --nav-bg-scrolled: rgba(6,16,13,.96);
+  --nav-shadow: 0 14px 50px rgba(0,0,0,.28);
+}
+
+.app-shell {
+  min-height: 100vh;
+  background: var(--app-bg);
+  color: var(--app-text);
+  transition: background-color .45s ease, color .45s ease;
+}
+
+.floating-navbar {
+  border-color: var(--app-border);
+  background: var(--nav-bg);
+  box-shadow: var(--nav-shadow);
+}
+.floating-navbar--scrolled {
+  background: var(--nav-bg-scrolled);
+  box-shadow: 0 20px 72px rgba(0,0,0,.38);
+}
+.theme-toggle {
+  border-color: var(--app-border);
+  color: var(--app-muted);
+  background: rgba(255,255,255,.025);
+}
+.theme-toggle:hover { color: var(--app-text); background: rgba(255,255,255,.075); }
+.mobile-dock {
+  border-color: var(--app-border);
+  background: var(--nav-bg-scrolled);
+}
+
+.theme-light {
+  --app-bg: #ece6d8;
+  --app-surface: #f8f4ea;
+  --app-surface-2: #e8eee5;
+  --app-text: #13251e;
+  --app-muted: rgba(19,37,30,.57);
+  --app-border: rgba(28,58,47,.14);
+  --nav-bg: rgba(247,243,233,.84);
+  --nav-bg-scrolled: rgba(247,243,233,.96);
+  --nav-shadow: 0 16px 55px rgba(55,72,61,.14);
+  color-scheme: light;
+}
+
+html[data-theme='light'],
+html[data-theme='light'] body { background: #ece6d8; }
+html[data-theme='light'] ::selection { background: rgba(73,130,106,.24); color: #102019; }
+html[data-theme='light'] ::-webkit-scrollbar-track { background: #ece6d8; }
+html[data-theme='light'] ::-webkit-scrollbar-thumb { background: rgba(28,58,47,.24); border-color: #ece6d8; }
+
+.theme-light .bg-grid-mask {
+  opacity: .34 !important;
+  background-image: linear-gradient(rgba(35,70,56,.075) 1px, transparent 1px), linear-gradient(90deg, rgba(35,70,56,.075) 1px, transparent 1px);
+}
+.theme-light .grain { opacity: .035; mix-blend-mode: multiply; }
+.theme-light .cursor-aura { background: radial-gradient(420px circle at var(--pointer-x) var(--pointer-y), rgba(61,130,103,.09), transparent 68%); }
+
+/* Convert regular application panels to daylight surfaces. Media heroes and the map keep their cinematic dark treatment. */
+.theme-light [class*="bg-[#0"]:not(.dashboard-hero):not(.about-hero):not(.satellite-note):not(.map-stage):not(.chart-tooltip),
+.theme-light [class*="bg-[#1"]:not(.map-stage) {
+  background-color: var(--app-surface) !important;
+}
+.theme-light [class*="border-white"] { border-color: var(--app-border) !important; }
+.theme-light [class*="bg-white/"] { background-color: rgba(35,76,59,.055) !important; }
+.theme-light [class*="bg-black/"] { background-color: rgba(245,240,227,.74) !important; }
+.theme-light [class*="text-white"] { color: rgba(19,37,30,.74) !important; }
+.theme-light [class~="text-white"] { color: #13251e !important; }
+.theme-light [class*="text-amber-100"] { color: #7b5b25 !important; }
+.theme-light [class*="text-cyan"] { color: #1e6b70 !important; }
+.theme-light [class*="text-emerald"] { color: #2e765b !important; }
+.theme-light [class*="text-rose"] { color: #a94f50 !important; }
+.theme-light [class*="hover:bg-white"]:hover { background-color: rgba(35,76,59,.09) !important; }
+.theme-light .text-outline {
+  -webkit-text-stroke-color: rgba(112,80,32,.62);
+  text-shadow: 0 0 55px rgba(112,80,32,.08);
+}
+
+.theme-light .metric-card {
+  background: linear-gradient(145deg, rgba(250,248,240,.99), rgba(233,239,231,.98));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.85), 0 20px 55px rgba(45,66,56,.09);
+}
+.theme-light .metric-card h3,
+.theme-light .metric-card p,
+.theme-light .metric-card span { text-shadow: none; }
+.theme-light .research-signal,
+.theme-light .chart-panel,
+.theme-light .comparison-chart,
+.theme-light table { color: #13251e; }
+.theme-light .research-signal {
+  background: linear-gradient(150deg, rgba(255,255,255,.72), rgba(224,234,225,.72));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.72), 0 18px 45px rgba(49,68,58,.07);
+}
+.theme-light .chart-panel {
+  background-color: #f8f4ea !important;
+  background-image: radial-gradient(circle at 88% 8%, rgba(61,130,103,.10), transparent 38%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.8), 0 24px 65px rgba(49,68,58,.09);
+}
+.theme-light .comparison-row,
+.theme-light .comparison-chart { border-color: rgba(28,58,47,.12); }
+.theme-light .change-insight-strip { background: rgba(28,58,47,.10) !important; }
+.theme-light .change-insight-strip > div { background: #eef1e8 !important; }
+
+.theme-light .recharts-cartesian-grid line { stroke: rgba(32,67,53,.12) !important; }
+.theme-light .recharts-cartesian-axis line,
+.theme-light .recharts-cartesian-axis-tick line { stroke: rgba(32,67,53,.18) !important; }
+.theme-light .recharts-cartesian-axis-tick-value { fill: rgba(19,37,30,.60) !important; }
+.theme-light .recharts-reference-line line { stroke: rgba(117,85,35,.48) !important; }
+.theme-light .chart-tooltip,
+.theme-light .recharts-default-tooltip {
+  border-color: rgba(28,58,47,.16) !important;
+  background: rgba(250,247,238,.97) !important;
+  color: #13251e !important;
+  box-shadow: 0 22px 65px rgba(48,67,57,.18);
+}
+.theme-light .chart-tooltip [class*="text-white"],
+.theme-light .chart-tooltip strong,
+.theme-light .chart-tooltip span,
+.theme-light .recharts-tooltip-label,
+.theme-light .recharts-tooltip-item { color: rgba(19,37,30,.76) !important; }
+
+.theme-light .floating-navbar [class*="bg-black/"] { background: rgba(35,76,59,.055) !important; }
+.theme-light .floating-navbar .theme-toggle { color: rgba(19,37,30,.58); background: rgba(35,76,59,.035); }
+.theme-light .mobile-dock { box-shadow: 0 18px 55px rgba(45,66,56,.16); }
+
+/* Keep text readable on dark satellite media. Map controls deliberately become daylight surfaces. */
+.theme-light .dashboard-hero,
+.theme-light .about-hero,
+.theme-light .satellite-note { color: #fff; }
+.theme-light .dashboard-hero [class*="text-white"],
+.theme-light .about-hero [class*="text-white"],
+.theme-light .satellite-note [class*="text-white"] { color: rgba(255,255,255,.72) !important; }
+.theme-light .dashboard-hero [class~="text-white"],
+.theme-light .about-hero [class~="text-white"],
+.theme-light .satellite-note [class~="text-white"] { color: #fff !important; }
+.theme-light .dashboard-hero [class*="bg-black/"],
+.theme-light .about-hero [class*="bg-black/"],
+.theme-light .satellite-note [class*="bg-black/"] { background-color: rgba(0,0,0,.3) !important; }
+
+.theme-light .map-stage { color: #13251e; }
+.theme-light .map-stage__topbar,
+.theme-light .map-layer-panel,
+.theme-light .map-stage .map-console-pill,
+.theme-light .map-stage .map-year-button,
+.theme-light .map-stage .map-coordinate-readout + * { color: #13251e; }
+.theme-light .map-tool-button {
+  border-color: rgba(28,58,47,.14);
+  background: rgba(248,244,234,.94);
+  color: rgba(19,37,30,.68);
+  box-shadow: 0 15px 38px rgba(42,62,52,.16);
+}
+.theme-light .map-tool-button:hover { color: #13251e; background: #fffaf0; border-color: rgba(28,58,47,.24); }
+.theme-light .map-tool-button--active { color: #76561f; background: #f3dfac; border-color: rgba(118,86,31,.24); }
+.theme-light .map-coordinate-readout,
+.theme-light .map-coordinate-readout [class*="text-white"] {
+  color: rgba(255,255,255,.62) !important;
+  text-shadow: 0 2px 14px rgba(0,0,0,.65);
+}
+
+/* Wheel events over the map are forwarded to the page. Do not trap scroll chaining. */
+.map-stage .leaflet-container {
+  overscroll-behavior: auto;
+}
+
+/* v1.3.2 satellite comparator: image assets are bundled by Vite and only the arrow handle is draggable. */
+.satellite-compare {
+  isolation: isolate;
+  cursor: default;
+  overscroll-behavior: contain;
+}
+.satellite-compare__handle {
+  cursor: ew-resize;
+  will-change: transform, box-shadow;
+  box-shadow: 0 18px 55px rgba(0,0,0,.46), 0 0 0 7px rgba(255,255,255,.035);
+}
+.satellite-compare__handle:hover,
+.satellite-compare__handle:focus-visible,
+.satellite-compare--dragging .satellite-compare__handle {
+  transform: translate(-50%, -50%) scale(1.07);
+  border-color: rgba(255,255,255,.68);
+  box-shadow: 0 20px 65px rgba(0,0,0,.54), 0 0 0 9px rgba(239,211,154,.09);
+}
+.satellite-compare--dragging,
+.satellite-compare--dragging * { cursor: ew-resize !important; }
+
+.theme-light .satellite-compare { background: #0b1512 !important; }
+.theme-light .satellite-compare [class*="text-white"] { color: rgba(255,255,255,.78) !important; }
+.theme-light .satellite-compare [class*="bg-black/"] { background-color: rgba(0,0,0,.5) !important; }
+.theme-light .satellite-compare__handle { background: rgba(12,24,20,.95) !important; color: #fff !important; }
+
+@media (max-width: 639px) {
+  .satellite-compare { height: 470px !important; }
+  .satellite-compare__handle { width: 52px; height: 52px; }
+}
