@@ -1,0 +1,9 @@
+system:index,binary_class,count,original_class,original_name,subset,year,.geo
+0,1,75,0,Air/Wetland,ground_truth,2020,"{""type"":""MultiPoint"",""coordinates"":[]}"
+1,0,75,1,Vegetasi,ground_truth,2020,"{""type"":""MultiPoint"",""coordinates"":[]}"
+2,0,75,2,Area Terbangun,ground_truth,2020,"{""type"":""MultiPoint"",""coordinates"":[]}"
+3,0,75,3,Lahan Terbuka/Kering,ground_truth,2020,"{""type"":""MultiPoint"",""coordinates"":[]}"
+4,1,75,0,Air/Wetland,ground_truth,2025,"{""type"":""MultiPoint"",""coordinates"":[]}"
+5,0,75,1,Vegetasi,ground_truth,2025,"{""type"":""MultiPoint"",""coordinates"":[]}"
+6,0,75,2,Area Terbangun,ground_truth,2025,"{""type"":""MultiPoint"",""coordinates"":[]}"
+7,0,75,3,Lahan Terbuka/Kering,ground_truth,2025,"{""type"":""MultiPoint"",""coordinates"":[]}"

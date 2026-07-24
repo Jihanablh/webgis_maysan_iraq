@@ -1,0 +1,10 @@
+system:index,process,step,.geo
+0,Sentinel-2 dan data pendukung,1,"{""type"":""MultiPoint"",""coordinates"":[]}"
+1,Cloud masking dan komposit,2,"{""type"":""MultiPoint"",""coordinates"":[]}"
+2,Feature stack identik,3,"{""type"":""MultiPoint"",""coordinates"":[]}"
+3,Ground truth manual,4,"{""type"":""MultiPoint"",""coordinates"":[]}"
+4,Split 70:30 dengan seed tetap,5,"{""type"":""MultiPoint"",""coordinates"":[]}"
+5,Random Forest soft voting,6,"{""type"":""MultiPoint"",""coordinates"":[]}"
+6,Evaluasi hanya testing,7,"{""type"":""MultiPoint"",""coordinates"":[]}"
+7,Klasifikasi 2020 dan 2025,8,"{""type"":""MultiPoint"",""coordinates"":[]}"
+8,Change analysis dan polygon WebGIS,9,"{""type"":""MultiPoint"",""coordinates"":[]}"
