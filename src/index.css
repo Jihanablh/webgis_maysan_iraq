@@ -41,7 +41,7 @@ img { display: block; }
 }
 
 .opening-satellite {
-  background-image: url('./assets/maysan-regional-2024-usgs.webp');
+  background-image: url('./assets/SceneRGB2025.jpeg');
   background-size: cover;
   background-position: 37% 52%;
   filter: saturate(.78) contrast(1.07) brightness(.62);
@@ -52,7 +52,7 @@ img { display: block; }
 .dashboard-hero__image,
 .satellite-note__image,
 .about-hero__image {
-  background-image: url('./assets/maysan-regional-2024-usgs.webp');
+  background-image: url('./assets/SceneRGB2025.jpeg');
   background-size: cover;
   background-position: 37% 52%;
   filter: saturate(.72) contrast(1.08) brightness(.72);

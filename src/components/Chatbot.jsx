@@ -5,42 +5,42 @@ const answer = (question) => {
   const text = question.toLowerCase()
 
   if (text.includes('maysan') || text.includes('amarah') || text.includes('lokasi')) {
-    return 'Maysan adalah governorate di tenggara Iraq dengan Amarah sebagai ibu kotanya. Prototipe ini memakai batas Maysan yang disederhanakan untuk tampilan peta, sedangkan hasil klasifikasi dan statistik perubahan masih berupa simulasi.'
+    return 'Maysan adalah governorate di tenggara Iraq dengan Amarah sebagai ibu kotanya. Analisis ini membandingkan kelas biner Air/Wetland dan Nontarget pada 2020 dan 2025.'
   }
   if (text.includes('2020') || text.includes('baseline')) {
     return 'Tahun 2020 digunakan sebagai baseline karena Sentinel-2 sudah memiliki rangkaian data yang stabil dan tahun tersebut cukup representatif untuk kondisi awal air, vegetasi, lahan terbuka, serta area terbangun sebelum dibandingkan dengan 2025.'
   }
   if (text.includes('2025') || text.includes('terbaru')) {
-    return 'Tahun 2025 dipakai sebagai kondisi terkini agar perubahan lima tahunan tetap relevan. Pada data simulasi Maysan, air dan vegetasi menurun, sedangkan lahan terbuka dan area terbangun meningkat.'
+    return 'Pada 2025, luas Air/Wetland tercatat 243,565 km², turun 823,100 km² atau 77,17% dibandingkan baseline 2020.'
   }
   if (text.includes('random forest') || text.includes('rf')) {
-    return 'Random Forest digunakan untuk mengklasifikasikan empat kelas tutupan lahan. Konfigurasi demo memakai 200 pohon, pembagian data 70% training dan 30% testing, seed 42, serta band Sentinel-2 ditambah NDVI, MNDWI, NDBI, dan BSI.'
+    return 'Random Forest digunakan untuk klasifikasi biner Air/Wetland. Model memakai 59 fitur, 416 sampel training, 184 sampel testing, threshold 0,4, bobot RF 0,7, dan bobot spectral 0,2.'
   }
   if (text.includes('akurasi') || text.includes('accuracy') || text.includes('confusion')) {
-    return 'Confusion matrix simulasi menghasilkan overall accuracy 89,25%. Nilai ini hanya contoh tampilan dan wajib diganti dengan hasil validasi model aktual dari Google Earth Engine.'
+    return 'Dari 184 sampel testing diperoleh TN 135, FP 3, FN 8, dan TP 38. Overall accuracy 94,02%; precision kelas Air/Wetland 92,68%; dan F1-score 87,36%.'
   }
   if (text.includes('ndvi')) {
     return 'NDVI dihitung dari band NIR B8 dan Red B4. Indeks ini membantu memisahkan vegetasi dari kelas nonvegetasi serta membaca kecenderungan kehilangan vegetasi.'
   }
   if (text.includes('mndwi') || text.includes('ndwi') || text.includes('air')) {
-    return 'MNDWI menggunakan Green B3 dan SWIR B11 untuk membantu menonjolkan air atau wetland. Pada data simulasi, luas kelas air turun dari 2.480 km² pada 2020 menjadi 2.130 km² pada 2025.'
+    return 'MNDWI menggunakan Green B3 dan SWIR B11 untuk membantu menonjolkan Air/Wetland. Luas target turun dari 1.066,665 km² pada 2020 menjadi 243,565 km² pada 2025.'
   }
   if (text.includes('ndbi') || text.includes('terbangun')) {
     return 'NDBI membantu menonjolkan area terbangun, tetapi tanah kering terang dapat memiliki respons spektral yang mirip. Karena itu, hasilnya perlu dikombinasikan dengan BSI, sampel ground truth, dan validasi visual.'
   }
   if (text.includes('bsi') || text.includes('lahan terbuka') || text.includes('kering')) {
-    return 'BSI membantu mengidentifikasi tanah terbuka dan lahan kering. Pada data simulasi, kelas ini meningkat 600 km² atau sekitar 9,1% selama 2020–2025.'
+    return 'BSI termasuk dalam feature stack untuk membantu model membedakan Air/Wetland dari permukaan nontarget.'
   }
   if (text.includes('data') || text.includes('simulasi') || text.includes('dummy')) {
-    return 'Luas kelas, poligon klasifikasi, hotspot, sampel, dan metrik model pada prototipe ini merupakan data simulasi. Batas Maysan menggunakan geometri referensi yang disederhanakan. Struktur aplikasi sudah disiapkan agar layer analitik dapat diganti dengan hasil GeoJSON dan CSV dari Google Earth Engine.'
+    return 'Data hasil analisis mencakup luas target 2020 dan 2025, gain, loss, area tetap, serta validasi model. Scene RGB 2020 dan 2025 tersedia sebagai pembanding visual.'
   }
   if (text.includes('kelas') || text.includes('objek')) {
-    return 'Empat kelas target adalah Air atau Wetland, Vegetasi, Lahan Terbuka atau Kering, dan Area Terbangun atau Aktivitas Manusia.'
+    return 'Target analisis adalah Air/Wetland dengan label biner 1. Seluruh kelas lainnya digabung sebagai Nontarget dengan label 0.'
   }
   if (text.includes('ekspor') || text.includes('download')) {
-    return 'Gunakan tombol GeoJSON di panel peta untuk mengunduh layer aktif. Gunakan tombol CSV pada bagian statistika untuk mengunduh tabel luas kelas simulasi Maysan.'
+    return 'Gunakan tombol GeoJSON di panel peta untuk mengunduh layer aktif dan tombol CSV pada bagian statistika untuk mengunduh tabel luas 2020–2025.'
   }
-  return 'Saya dapat menjelaskan Maysan, baseline 2020, kondisi 2025, empat kelas tutupan lahan, indeks Sentinel-2, Random Forest, confusion matrix, perubahan luas, dan cara ekspor data.'
+  return 'Saya dapat menjelaskan Maysan, baseline 2020, kondisi 2025, kelas biner Air/Wetland, Random Forest, confusion matrix, gain, loss, perubahan bersih, dan cara ekspor data.'
 }
 
 export default function Chatbot() {

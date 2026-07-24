@@ -92,7 +92,7 @@ export default function Opening({ onEnter }) {
               </button>
               <div className="flex items-center gap-3 text-[10px] uppercase tracking-[.18em] text-white/34">
                 <Satellite size={15} className="text-cyan-100/55" />
-                <span>Data analitik masih simulasi</span>
+                <span>Data analitik hasil pengolahan</span>
               </div>
             </div>
           </motion.div>
@@ -106,9 +106,9 @@ export default function Opening({ onEnter }) {
             >
               <p className="text-[9px] uppercase tracking-[.28em] text-cyan-100/48">Satellite context</p>
               <p className="mt-3 font-display text-2xl font-semibold leading-tight text-white/88">Maysan’s river, wetland, agricultural, and dryland mosaic, observed from orbit.</p>
-              <p className="mt-4 text-xs leading-6 text-white/40">Latar citra digunakan sebagai konteks regional. Klasifikasi 2020–2025 pada prototipe tetap berupa data simulasi.</p>
+              <p className="mt-4 text-xs leading-6 text-white/40">Scene RGB 2020 dan 2025 digunakan untuk memperlihatkan perubahan visual Air/Wetland di wilayah kajian.</p>
               <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-4 text-[9px] uppercase tracking-[.16em] text-white/28">
-                <span>31.84° N</span><span>47.14° E</span><span>USGS / Landsat</span>
+                <span>31.84° N</span><span>47.14° E</span><span>Sentinel-2 RGB</span>
               </div>
             </motion.div>
           </div>
@@ -116,7 +116,7 @@ export default function Opening({ onEnter }) {
 
         <footer className="grid gap-4 border-t border-white/10 pt-5 text-[9px] uppercase tracking-[.2em] text-white/32 sm:grid-cols-3">
           <span>Maysan Governorate / Iraq</span>
-          <span className="sm:text-center">Water · Vegetation · Bare · Built-up</span>
+          <span className="sm:text-center">Air/Wetland · Nontarget</span>
           <span className="sm:text-right">Guided spatial exploration</span>
         </footer>
       </div>

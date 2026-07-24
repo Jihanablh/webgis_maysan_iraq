@@ -2,29 +2,26 @@ export { classificationByYear } from './classificationData.js'
 
 export const classMeta = {
   water: { label: 'Air / Wetland', color: '#4fc3d7', short: 'Air' },
+  nontarget: { label: 'Nontarget', color: '#d79a55', short: 'Nontarget' },
   vegetation: { label: 'Vegetasi', color: '#62b879', short: 'Vegetasi' },
   bare: { label: 'Lahan terbuka / kering', color: '#d79a55', short: 'Lahan terbuka' },
   built: { label: 'Area terbangun / aktivitas manusia', color: '#d96767', short: 'Terbangun' },
 }
 
 export const classAreaData = [
-  { classKey: 'water', className: 'Air / Wetland', area2020: 2480, area2025: 2130, change: -350, changePct: -14.1 },
-  { classKey: 'vegetation', className: 'Vegetasi', area2020: 6420, area2025: 6050, change: -370, changePct: -5.8 },
-  { classKey: 'bare', className: 'Lahan terbuka / kering', area2020: 6580, area2025: 7180, change: 600, changePct: 9.1 },
-  { classKey: 'built', className: 'Area terbangun', area2020: 592, area2025: 712, change: 120, changePct: 20.3 },
+  { classKey: 'water', className: 'Air / Wetland', area2020: 1066.6645943089637, area2025: 243.56498572577788, change: -823.0996085831858, changePct: -77.16573822501461 },
+  { classKey: 'nontarget', className: 'Nontarget', area2020: 16275.356800730684, area2025: 17098.45640904218, change: 823.099608311496, changePct: 5.057338377929335 },
 ]
 
 export const statusCards = [
-  { label: 'Air / Wetland', value: '2.130 km²', note: 'Kondisi simulasi 2025', trend: '-14,1%', tone: 'water' },
-  { label: 'Vegetasi', value: '6.050 km²', note: 'Kondisi simulasi 2025', trend: '-5,8%', tone: 'vegetation' },
-  { label: 'Lahan Terbuka', value: '7.180 km²', note: 'Kondisi simulasi 2025', trend: '+9,1%', tone: 'bare' },
-  { label: 'Area Terbangun', value: '712 km²', note: 'Kondisi simulasi 2025', trend: '+20,3%', tone: 'built' },
+  { label: 'Air / Wetland', value: '243,565 km²', note: 'Hasil klasifikasi 2025', trend: '-77,17%', tone: 'water' },
+  { label: 'Nontarget', value: '17.491,241 km²', note: 'Hasil klasifikasi 2025', trend: '+4,94%', tone: 'nontarget' },
 ]
 
 export const changeSummary = [
-  { label: 'Kehilangan air', value: '350 km²', detail: 'Perubahan 2020–2025', classKey: 'water' },
-  { label: 'Kehilangan vegetasi', value: '370 km²', detail: 'Perubahan 2020–2025', classKey: 'vegetation' },
-  { label: 'Ekspansi lahan kering', value: '600 km²', detail: 'Perubahan 2020–2025', classKey: 'bare' },
+  { label: 'Gain / 0→1', value: '117,843 km²', detail: 'Nontarget menjadi target', classKey: 'water' },
+  { label: 'Loss / 1→0', value: '940,942 km²', detail: 'Target menjadi nontarget', classKey: 'nontarget' },
+  { label: 'Net change', value: '−823,100 km²', detail: 'Perubahan bersih target', classKey: 'water' },
 ]
 
 export const annualIndexData = [
@@ -37,11 +34,10 @@ export const annualIndexData = [
 ]
 
 export const transitionData = [
-  { transition: 'Air → Kering', area: 230 },
-  { transition: 'Vegetasi → Kering', area: 310 },
-  { transition: 'Vegetasi → Terbangun', area: 78 },
-  { transition: 'Kering → Terbangun', area: 42 },
-  { transition: 'Kering → Vegetasi', area: 26 },
+  { transition: 'Tetap nontarget (0→0)', area: 16157.514030508464 },
+  { transition: 'Gain (0→1)', area: 117.84276995221871 },
+  { transition: 'Loss (1→0)', area: 940.9423785337187 },
+  { transition: 'Tetap target (1→1)', area: 125.72221577331598 },
 ]
 
 // Batas Maysan disederhanakan dari Natural Earth Admin-1 / Wikimedia Commons (CC0).
@@ -105,37 +101,33 @@ export const samplePoints = [
 ]
 
 export const rfParameters = [
-  { label: 'Number of trees', value: '200' },
-  { label: 'Training / testing', value: '70% / 30%' },
-  { label: 'Random seed', value: '42' },
-  { label: 'Bag fraction', value: '0,7' },
-  { label: 'Min. leaf population', value: '1' },
-  { label: 'Input features', value: 'Bands + 4 indices' },
+  { label: 'Target biner', value: 'Air/Wetland = 1' },
+  { label: 'Training / testing', value: '416 (70%) / 184 (30%)' },
+  { label: 'Jumlah fitur', value: '59' },
+  { label: 'Threshold', value: '0,4' },
+  { label: 'Bobot RF', value: '0,7' },
+  { label: 'Bobot spectral', value: '0,2' },
 ]
 
 export const confusionMatrix = {
-  labels: ['Air', 'Vegetasi', 'Lahan terbuka', 'Terbangun'],
+  labels: ['Nontarget', 'Air / Wetland'],
   values: [
-    [92, 4, 3, 1],
-    [5, 86, 7, 2],
-    [2, 6, 88, 4],
-    [1, 3, 5, 91],
+    [135, 3],
+    [8, 38],
   ],
 }
 
 export const accuracyMetrics = [
-  { className: 'Air / Wetland', precision: 92.0, recall: 92.0, f1: 92.0 },
-  { className: 'Vegetasi', precision: 86.9, recall: 86.0, f1: 86.4 },
-  { className: 'Lahan terbuka / kering', precision: 85.4, recall: 88.0, f1: 86.7 },
-  { className: 'Area terbangun', precision: 92.9, recall: 91.0, f1: 91.9 },
+  { className: 'Air / Wetland (kelas 1)', precision: 92.68, recall: 82.61, f1: 87.36 },
+  { className: 'Nontarget (kelas 0)', precision: 94.41, recall: 97.83, f1: 96.09 },
 ]
 
 export const overallAccuracy = {
-  accuracy: 89.25,
-  macroPrecision: 89.3,
-  macroRecall: 89.25,
-  macroF1: 89.25,
-  samples: 400,
+  accuracy: 94.02,
+  macroPrecision: 93.54,
+  macroRecall: 90.22,
+  macroF1: 91.72,
+  samples: 184,
 }
 
 export const featureImportanceData = [
@@ -153,27 +145,27 @@ export const storyFrames = [
     id: 'water',
     index: '01',
     label: 'Hydrological signal',
-    title: 'Ruang air Maysan menyusut di wetland timur dan sepanjang koridor hidrologis.',
-    text: 'Skenario perubahan menunjukkan kehilangan air sebesar 350 km². Angka simulasi ini menjadi sinyal awal untuk memeriksa perubahan suplai air, konektivitas Sungai Tigris, dan kekeringan musiman.',
-    value: '-350 km²',
+    title: 'Luas Air/Wetland Maysan berkurang tajam selama 2020–2025.',
+    text: 'Luas target turun dari 1.066,665 km² pada 2020 menjadi 243,565 km² pada 2025. Perubahan bersihnya −823,100 km² atau −77,17% dari baseline.',
+    value: '−823,100 km²',
     accent: '#4fc3d7',
   },
   {
     id: 'vegetation',
     index: '02',
     label: 'Ecological signal',
-    title: 'Vegetasi dan lahan pertanian kehilangan sebagian kontinuitas spasialnya.',
-    text: 'Penurunan NDVI dan pertambahan kelas lahan terbuka mengindikasikan tekanan pada bentang lahan Maysan yang perlu diverifikasi menggunakan sampel manual independen.',
-    value: '-370 km²',
+    title: 'Loss jauh lebih besar dibandingkan gain.',
+    text: 'Area target yang berubah menjadi nontarget mencapai 940,942 km², sedangkan area nontarget yang berubah menjadi target hanya 117,843 km².',
+    value: '940,942 km² loss',
     accent: '#62b879',
   },
   {
     id: 'pressure',
     index: '03',
     label: 'Human pressure',
-    title: 'Aktivitas manusia tumbuh di sekitar Amarah dan koridor permukiman selatan.',
-    text: 'Kelas terbangun bertambah pada skenario 2025. Karena tanah terang dapat memiliki respons spektral serupa, interpretasi NDBI perlu dibaca bersama BSI dan konteks spasial.',
-    value: '+120 km²',
+    title: 'Model biner menunjukkan presisi tinggi untuk kelas target.',
+    text: 'Pada 184 sampel testing, precision kelas Air/Wetland mencapai 92,68% dan F1-score 87,36%. Confusion matrix terdiri atas TN 135, FP 3, FN 8, dan TP 38.',
+    value: 'F1 87,36%',
     accent: '#d96767',
   },
 ]

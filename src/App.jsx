@@ -54,8 +54,8 @@ import {
 import Opening from './components/Opening'
 const MapPanel = lazy(() => import('./components/MapPanel'))
 import Chatbot from './components/Chatbot'
-import maysan2019Image from './assets/maysan-regional-2019-usgs.webp'
-import maysan2024Image from './assets/maysan-regional-2024-usgs.webp'
+import scene2020Image from './assets/SceneRGB2020.jpeg'
+import scene2025Image from './assets/SceneRGB2025.jpeg'
 import {
   accuracyMetrics,
   annualIndexData,
@@ -80,7 +80,7 @@ const pages = [
   { id: 'about', label: 'Tentang', short: 'About', icon: Orbit },
 ]
 
-const formatArea = (value) => Number(value).toLocaleString('id-ID', { maximumFractionDigits: 1 })
+const formatArea = (value) => Number(value).toLocaleString('id-ID', { maximumFractionDigits: 3 })
 
 function ChartTooltip({ active, payload, label, unit = '' }) {
   if (!active || !payload?.length) return null
@@ -102,7 +102,7 @@ function ChartTooltip({ active, payload, label, unit = '' }) {
   )
 }
 
-const totalStudyArea = classAreaData.reduce((sum, item) => sum + item.area2025, 0)
+const totalStudyArea = 17354.805997463753
 
 const pageVariants = {
   initial: { opacity: 0, y: 18, filter: 'blur(7px)' },
@@ -203,7 +203,7 @@ function Navbar({ activePage, onNavigate, theme, setTheme }) {
 
             <div className="flex items-center gap-2">
               <div className="hidden items-center gap-2 border-r border-white/10 pr-4 text-[9px] uppercase tracking-[.18em] text-white/35 md:flex">
-                <Radio size={12} className="animate-pulse text-emerald-300" /> Data simulasi
+                <Radio size={12} className="animate-pulse text-emerald-300" /> Data hasil analisis
               </div>
               <button
                 type="button"
@@ -296,7 +296,7 @@ function PageHeader({ eyebrow, title, description, children, compact = false }) 
 
 function MetricRail() {
   return (
-    <div className="metric-rail grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+    <div className="metric-rail grid gap-3 sm:grid-cols-2 xl:grid-cols-2">
       {statusCards.map((item, index) => {
         const data = classAreaData[index]
         const accent = classMeta[item.tone].color
@@ -350,9 +350,9 @@ function MetricRail() {
 function ResearchSignals() {
   const signals = [
     { label: 'Total area studi', value: `${formatArea(totalStudyArea)} km²`, detail: 'Konsisten pada dua tahun observasi', tone: '#efd39a' },
-    { label: 'Kehilangan wetland', value: '350 km²', detail: 'Penurunan 14,1% dari baseline', tone: classMeta.water.color },
-    { label: 'Kehilangan vegetasi', value: '370 km²', detail: 'Penurunan 5,8% dari baseline', tone: classMeta.vegetation.color },
-    { label: 'Overall accuracy', value: '89,25%', detail: 'Validasi simulasi Random Forest', tone: '#8fd8bd' },
+    { label: 'Kehilangan target', value: '940,942 km²', detail: 'Loss / transisi 1→0', tone: classMeta.water.color },
+    { label: 'Pertambahan target', value: '117,843 km²', detail: 'Gain / transisi 0→1', tone: classMeta.nontarget.color },
+    { label: 'Precision target', value: '92,68%', detail: 'Validasi testing kelas 1', tone: '#8fd8bd' },
   ]
   return (
     <section className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4" aria-label="Ringkasan statistik utama">
@@ -384,15 +384,15 @@ function NetChangeChart() {
           <p className="mt-3 max-w-2xl text-xs leading-6 text-white/40">Sumbu nol memisahkan kehilangan di sisi kiri dan ekspansi di sisi kanan. Grafik ini menjadi ringkasan perubahan paling cepat dibaca.</p>
         </div>
         <div className="flex flex-wrap gap-2 text-[9px] uppercase tracking-[.14em]">
-          <span className="rounded-full border border-rose-200/15 bg-rose-200/[.06] px-3 py-2 text-rose-100">Kehilangan −720 km²</span>
-          <span className="rounded-full border border-emerald-200/15 bg-emerald-200/[.06] px-3 py-2 text-emerald-100">Ekspansi +720 km²</span>
+          <span className="rounded-full border border-rose-200/15 bg-rose-200/[.06] px-3 py-2 text-rose-100">Loss 940,942 km²</span>
+          <span className="rounded-full border border-emerald-200/15 bg-emerald-200/[.06] px-3 py-2 text-emerald-100">Gain 117,843 km²</span>
         </div>
       </div>
       <div className="mt-7 h-[330px] sm:h-[360px]">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data} layout="vertical" margin={{ top: 8, right: 28, left: 8, bottom: 8 }}>
             <CartesianGrid stroke="rgba(255,255,255,.055)" horizontal={false} />
-            <XAxis type="number" domain={[-450, 700]} stroke="rgba(255,255,255,.3)" fontSize={10} tickLine={false} tickFormatter={(value) => `${value > 0 ? '+' : ''}${value}`} />
+            <XAxis type="number" domain={[-900, 900]} stroke="rgba(255,255,255,.3)" fontSize={10} tickLine={false} tickFormatter={(value) => `${value > 0 ? '+' : ''}${value}`} />
             <YAxis dataKey="shortName" type="category" width={118} stroke="rgba(255,255,255,.42)" fontSize={10} tickLine={false} axisLine={false} />
             <ReferenceLine x={0} stroke="rgba(239,211,154,.48)" strokeDasharray="4 5" />
             <Tooltip content={<ChartTooltip unit=" km²" />} cursor={{ fill: 'rgba(255,255,255,.025)' }} />
@@ -403,9 +403,9 @@ function NetChangeChart() {
         </ResponsiveContainer>
       </div>
       <div className="change-insight-strip mt-4 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-3">
-        <div className="bg-[#0a1713] p-4"><p className="text-[8px] uppercase tracking-[.18em] text-white/30">Tekanan terbesar</p><p className="mt-2 text-sm font-semibold text-white">Wetland −350 km²</p></div>
-        <div className="bg-[#0a1713] p-4"><p className="text-[8px] uppercase tracking-[.18em] text-white/30">Ekspansi terbesar</p><p className="mt-2 text-sm font-semibold text-white">Lahan kering +600 km²</p></div>
-        <div className="bg-[#0a1713] p-4"><p className="text-[8px] uppercase tracking-[.18em] text-white/30">Interpretasi utama</p><p className="mt-2 text-sm font-semibold text-white">Pergeseran menuju permukaan kering</p></div>
+        <div className="bg-[#0a1713] p-4"><p className="text-[8px] uppercase tracking-[.18em] text-white/30">Perubahan terbesar</p><p className="mt-2 text-sm font-semibold text-white">Loss 940,942 km²</p></div>
+        <div className="bg-[#0a1713] p-4"><p className="text-[8px] uppercase tracking-[.18em] text-white/30">Perubahan bersih</p><p className="mt-2 text-sm font-semibold text-white">−823,100 km²</p></div>
+        <div className="bg-[#0a1713] p-4"><p className="text-[8px] uppercase tracking-[.18em] text-white/30">Interpretasi utama</p><p className="mt-2 text-sm font-semibold text-white">Target turun 77,17%</p></div>
       </div>
     </article>
   )
@@ -513,7 +513,7 @@ function DashboardPage({ onNavigate }) {
                 [formatArea(totalStudyArea), 'km² area studi'],
                 ['04', 'kelas utama'],
                 ['05', 'tahun perubahan'],
-                ['89,25', '% OA simulasi'],
+                ['94,02', '% overall accuracy'],
               ].map(([value, label]) => <div key={label}><p className="font-display text-2xl font-semibold text-white">{value}</p><p className="mt-1 text-[9px] uppercase tracking-[.16em] text-white/31">{label}</p></div>)}
             </div>
           </div>
@@ -585,7 +585,7 @@ function DashboardPage({ onNavigate }) {
                 <p className="mt-5 text-[10px] uppercase tracking-[.25em]" style={{ color: frame.accent }}>{frame.label}</p>
                 <h3 className="mt-4 font-display text-3xl font-semibold leading-tight text-white md:text-5xl">{frame.title}</h3>
                 <p className="mt-6 max-w-2xl text-sm leading-7 text-white/45 md:text-base">{frame.text}</p>
-                <div className="mt-10 flex items-end gap-4"><p className="font-display text-5xl font-semibold text-white">{frame.value}</p><span className="mb-2 text-[9px] uppercase tracking-[.18em] text-white/30">perubahan simulasi</span></div>
+                <div className="mt-10 flex items-end gap-4"><p className="font-display text-5xl font-semibold text-white">{frame.value}</p><span className="mb-2 text-[9px] uppercase tracking-[.18em] text-white/30">hasil analisis</span></div>
               </div>
             </motion.article>
           </AnimatePresence>
@@ -606,7 +606,7 @@ function DashboardPage({ onNavigate }) {
           <div className="relative flex h-full min-h-[390px] flex-col justify-between">
             <div className="flex items-center justify-between"><span className="rounded-full border border-white/12 bg-black/25 px-3 py-2 text-[9px] uppercase tracking-[.18em] text-white/55 backdrop-blur">Orbital context</span><Satellite className="text-amber-100/60" /></div>
             <div>
-              <p className="text-[9px] uppercase tracking-[.2em] text-white/35">USGS Landsat / 2024</p>
+              <p className="text-[9px] uppercase tracking-[.2em] text-white/35">Sentinel-2 RGB / 2025</p>
               <h3 className="mt-3 font-display text-3xl font-semibold text-white">Citra regional memberi identitas yang tidak bisa digantikan oleh gradient generik.</h3>
               <p className="mt-4 text-xs leading-6 text-white/45">Digunakan sebagai konteks visual, bukan sebagai hasil klasifikasi penelitian.</p>
             </div>
@@ -710,24 +710,24 @@ function SatelliteCompare() {
   return (
     <article className="overflow-hidden border border-white/10 bg-[#07110f]">
       <div className="flex flex-col gap-4 border-b border-white/10 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-7">
-        <div><p className="text-[9px] uppercase tracking-[.24em] text-white/30">Orbital context comparison</p><h2 className="mt-1 font-display text-2xl font-semibold text-white">Bentang regional 2019 dan 2024</h2></div>
+        <div><p className="text-[9px] uppercase tracking-[.24em] text-white/30">Orbital context comparison</p><h2 className="mt-1 font-display text-2xl font-semibold text-white">Scene RGB 2020 dan 2025</h2></div>
         <span className="rounded-full border border-white/10 px-3 py-2 text-[9px] uppercase tracking-[.16em] text-white/42">Seret tombol panah untuk membandingkan</span>
       </div>
       <div ref={frameRef} className={`satellite-compare relative h-[560px] overflow-hidden bg-[#0b1512] ${dragging ? 'satellite-compare--dragging' : ''}`}>
-        <img src={maysan2019Image} alt="Citra satelit regional Maysan dan Irak selatan tahun 2019 dari USGS" className="absolute inset-0 h-full w-full select-none object-cover" draggable="false" />
+        <img src={scene2020Image} alt="Scene RGB wilayah kajian Maysan tahun 2020" className="absolute inset-0 h-full w-full select-none object-cover" draggable="false" />
         <div className="pointer-events-none absolute inset-0 overflow-hidden" style={{ clipPath: `inset(0 ${100 - reveal}% 0 0)` }} aria-hidden="true">
-          <img src={maysan2024Image} alt="" className="absolute inset-0 h-full w-full select-none object-cover" draggable="false" />
+          <img src={scene2025Image} alt="Scene RGB wilayah kajian Maysan tahun 2025" className="absolute inset-0 h-full w-full select-none object-cover" draggable="false" />
         </div>
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(4,9,8,.03),rgba(4,9,8,.42))]" />
         <div className="pointer-events-none absolute inset-y-0 z-20 w-px bg-white/90 shadow-[0_0_30px_rgba(255,255,255,.85)]" style={{ left: `${reveal}%` }}>
           <div
             role="slider"
             tabIndex={0}
-            aria-label="Posisi pembanding citra 2019 dan 2024"
+            aria-label="Posisi pembanding Scene RGB 2020 dan 2025"
             aria-valuemin={8}
             aria-valuemax={92}
             aria-valuenow={Math.round(reveal)}
-            aria-valuetext={`${Math.round(reveal)} persen citra 2024 terlihat`}
+            aria-valuetext={`${Math.round(reveal)} persen citra 2025 terlihat`}
             onPointerDown={handlePointerDown}
             onPointerMove={handlePointerMove}
             onPointerUp={stopDragging}
@@ -739,13 +739,13 @@ function SatelliteCompare() {
             <ChevronLeft size={17} aria-hidden="true" /><ChevronRight size={17} aria-hidden="true" />
           </div>
         </div>
-        <span className="pointer-events-none absolute left-5 top-5 z-20 rounded-full bg-black/50 px-3 py-2 text-[10px] uppercase tracking-[.15em] text-white/70 backdrop-blur">2024 / context</span>
-        <span className="pointer-events-none absolute right-5 top-5 z-20 rounded-full bg-black/50 px-3 py-2 text-[10px] uppercase tracking-[.15em] text-white/70 backdrop-blur">2019 / context</span>
+        <span className="pointer-events-none absolute left-5 top-5 z-20 rounded-full bg-black/50 px-3 py-2 text-[10px] uppercase tracking-[.15em] text-white/70 backdrop-blur">2025 / Scene RGB</span>
+        <span className="pointer-events-none absolute right-5 top-5 z-20 rounded-full bg-black/50 px-3 py-2 text-[10px] uppercase tracking-[.15em] text-white/70 backdrop-blur">2020 / Scene RGB</span>
         <div className="pointer-events-none absolute bottom-5 left-5 z-20 rounded-full border border-white/10 bg-black/45 px-3 py-2 text-[9px] uppercase tracking-[.14em] text-white/45 backdrop-blur">
           Posisi {Math.round(reveal)}%
         </div>
       </div>
-      <p className="border-t border-white/10 px-5 py-4 text-[10px] leading-5 text-white/32 sm:px-7">Citra USGS Landsat ini digunakan sebagai konteks visual regional. Tahun input klasifikasi penelitian tetap 2020 dan 2025, serta data klasifikasi pada prototipe masih simulasi.</p>
+      <p className="border-t border-white/10 px-5 py-4 text-[10px] leading-5 text-white/32 sm:px-7">Scene RGB menampilkan kondisi wilayah kajian pada 2020 dan 2025. Geser pembatas untuk membandingkan perubahan visual kedua tahun.</p>
     </article>
   )
 }
@@ -884,7 +884,7 @@ function ValidationPage() {
             <CircleGauge className="text-emerald-200" size={27} />
             <p className="mt-10 text-[9px] uppercase tracking-[.25em] text-white/30">Overall accuracy</p>
             <p className="mt-3 font-display text-[clamp(4.5rem,8vw,8rem)] font-semibold leading-none tracking-[-.07em] text-white">{overallAccuracy.accuracy}<span className="text-3xl text-white/35">%</span></p>
-            <p className="mt-5 max-w-sm text-sm leading-7 text-white/43">Akurasi simulasi dihitung dari 400 sampel uji. Angka ini menunjukkan performa prototipe, bukan hasil penelitian final.</p>
+            <p className="mt-5 max-w-sm text-sm leading-7 text-white/43">Akurasi dihitung dari 184 sampel testing (30%). Untuk kelas target Air/Wetland, precision 92,68% dan F1-score 87,36%.</p>
             <div className="mt-10 grid grid-cols-3 gap-3">{[['Precision',overallAccuracy.macroPrecision],['Recall',overallAccuracy.macroRecall],['F1',overallAccuracy.macroF1]].map(([label,value]) => <div key={label} className="border-l border-white/12 pl-3"><p className="font-display text-xl font-semibold text-white">{value}%</p><p className="mt-1 text-[8px] uppercase tracking-[.14em] text-white/28">{label}</p></div>)}</div>
           </div>
         </article>
@@ -893,9 +893,9 @@ function ValidationPage() {
           <div className="flex items-center justify-between"><div><p className="text-[9px] uppercase tracking-[.23em] text-white/30">Confusion matrix</p><h2 className="mt-2 font-display text-3xl font-semibold text-white">Prediksi versus referensi</h2></div><ShieldCheck className="text-amber-100/55" /></div>
           <div className="mt-8 overflow-x-auto">
             <div className="min-w-[620px]">
-              <div className="grid grid-cols-[135px_repeat(4,1fr)] gap-2 text-center text-[9px] uppercase tracking-[.12em] text-white/30"><span /><span>Air</span><span>Vegetasi</span><span>Lahan kering</span><span>Terbangun</span></div>
+              <div className="grid gap-2 text-center text-[9px] uppercase tracking-[.12em] text-white/30" style={{ gridTemplateColumns: `135px repeat(${confusionMatrix.labels.length}, minmax(0, 1fr))` }}><span />{confusionMatrix.labels.map((label) => <span key={label}>{label}</span>)}</div>
               {confusionMatrix.values.map((row, rowIndex) => (
-                <div key={confusionMatrix.labels[rowIndex]} className="mt-2 grid grid-cols-[135px_repeat(4,1fr)] gap-2">
+                <div key={confusionMatrix.labels[rowIndex]} className="mt-2 grid gap-2" style={{ gridTemplateColumns: `135px repeat(${confusionMatrix.labels.length}, minmax(0, 1fr))` }}>
                   <div className="flex items-center text-xs text-white/45">{confusionMatrix.labels[rowIndex]}</div>
                   {row.map((value, colIndex) => <div key={`${rowIndex}-${colIndex}`} className={`matrix-cell grid h-20 place-items-center border text-lg font-semibold ${rowIndex === colIndex ? 'border-emerald-200/22 bg-emerald-200/[.1] text-emerald-100' : 'border-white/8 bg-white/[.025] text-white/42'}`} style={{ '--matrix-alpha': value / 100 }}><span>{value}</span></div>)}
                 </div>
@@ -966,7 +966,7 @@ function AboutPage({ onNavigate }) {
       </div>
 
       <section className="mt-14 grid gap-px overflow-hidden border border-white/10 bg-white/10 lg:grid-cols-[1.2fr_.8fr]">
-        <article className="bg-[#091512] p-6 sm:p-10 lg:p-12"><p className="text-[9px] uppercase tracking-[.24em] text-white/30">System statement</p><h2 className="mt-3 max-w-4xl font-display text-4xl font-semibold leading-tight text-white md:text-5xl">Visual yang kuat tidak boleh mengaburkan batas ilmiah data.</h2><p className="mt-6 max-w-4xl text-sm leading-7 text-white/44">Geometri batas, poligon klasifikasi, titik sampel, luas kelas, dan metrik akurasi pada prototipe ini masih simulasi. Seluruhnya harus diganti dengan hasil pengolahan serta validasi yang dapat dipertanggungjawabkan sebelum digunakan dalam laporan final.</p></article>
+        <article className="bg-[#091512] p-6 sm:p-10 lg:p-12"><p className="text-[9px] uppercase tracking-[.24em] text-white/30">System statement</p><h2 className="mt-3 max-w-4xl font-display text-4xl font-semibold leading-tight text-white md:text-5xl">Visual yang kuat tetap harus dibaca bersama batas ilmiah data.</h2><p className="mt-6 max-w-4xl text-sm leading-7 text-white/44">Angka luas, gain, loss, dan metrik validasi telah diperbarui menggunakan hasil analisis 2020–2025. Geometri batas dan poligon tampilan tetap berfungsi sebagai representasi visual yang disederhanakan.</p></article>
         <article className="bg-[#0a1713] p-6 sm:p-10 lg:p-12"><Sparkles className="text-amber-100/60" /><h2 className="mt-7 font-display text-3xl font-semibold text-white">Lanjutkan eksplorasi</h2><p className="mt-4 text-sm leading-7 text-white/42">Peta adalah tempat terbaik untuk memahami hubungan antar kelas dan hotspot perubahan.</p><button type="button" onClick={() => onNavigate('map')} className="mt-8 flex w-full items-center justify-between rounded-2xl bg-[#efd39a] px-5 py-4 text-sm font-semibold text-[#10201a] transition hover:bg-[#f7e0b1]">Buka peta <ExternalLink size={16} /></button></article>
       </section>
     </PageShell>
@@ -1048,7 +1048,7 @@ export default function App() {
       </main>
       {activePage !== 'map' && (
         <footer className="relative z-10 border-t border-white/10 px-4 pb-24 pt-8 text-[9px] uppercase tracking-[.17em] text-white/28 sm:px-7 md:pb-8 lg:px-12">
-          <div className="mx-auto grid max-w-[1580px] gap-4 sm:grid-cols-3"><span>MAYSAN//GEOAI · Iraq Observatory</span><span className="sm:text-center">Sentinel-2 · Random Forest · Data simulasi</span><span className="sm:text-right">Visual context: USGS Landsat 2019 / 2024</span></div>
+          <div className="mx-auto grid max-w-[1580px] gap-4 sm:grid-cols-3"><span>MAYSAN//GEOAI · Iraq Observatory</span><span className="sm:text-center">Sentinel-2 · Random Forest · Data hasil analisis</span><span className="sm:text-right">Scene RGB 2020 / 2025</span></div>
         </footer>
       )}
       <Chatbot />
